@@ -17,16 +17,13 @@ app = Flask(__name__)
 
 @app.route('/predict', methods=['POST'])
 def get_text():
-    model = TextPredictionModel.from_artefacts("/Users/rvie/Documents/5A/Poc to prod/poc-to-prod-romain/train/data/artefacts/2023-01-03-12-42-59")
-
+    model = TextPredictionModel.from_artefacts("/../../train/data/artefacts/2023-01-06-20-04-59")
     body = json.loads(request.get_data())
-
     text = body['text']
     top_k = body['top_k']
-
     predictions = model.predict(text, top_k)
 
-    return "The text is :  " + text + "  and the prediction is :  " + str(predictions)
+    return "text to predict :  " + text + "  and prediction result :  " + str(predictions)
 
 
 @app.route('/', methods=['GET'])
