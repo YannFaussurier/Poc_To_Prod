@@ -54,7 +54,7 @@ class TestPredict(unittest.TestCase):
             #predict
             predictions_obtained = textpredictmodel.predict(['php'], 2)
 
-        
+
         # assert that the prediction shape is correct
         self.assertGreaterEqual(predictions_obtained.shape, (1, 2))
 
