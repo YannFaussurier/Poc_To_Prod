@@ -6,6 +6,7 @@ import logging
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Input
 
 from preprocessing.preprocessing.embeddings import embed
 from preprocessing.preprocessing.utils import LocalTextCategorizationDataset
@@ -46,11 +47,11 @@ def train(dataset_path, train_conf, model_path, add_timestamp):
     # instantiate a sequential keras model
     # add a dense layer with relu activation
     # add an output layer (multiclass classification problem)
-    model = keras.Sequential(
+    model = Sequential(
     [
-        keras.Input(shape=dataset.get_train_batch()[0].shape(-1)),
-        layers.Dense(activation="relu"),
-        layers.Dense(activation="softmax")
+        Input(shape=dataset.get_train_batch()[0].shape(-1)),
+        Dense(activation="relu"),
+        Dense(activation="softmax")
     ]
 )
 
