@@ -29,13 +29,15 @@ class TextPredictionModel:
         """
         # TODO: CODE HERE
         # load model
-        model =
+        model = load_model(f"{artefacts_path}/model.h5")
 
         # TODO: CODE HERE
         # load params
+        params = json.load(open(os.path.join(artefacts_path, 'params.json'), 'rb'))
 
         # TODO: CODE HERE
         # load labels_to_index
+        labels_to_index = json.load(open(os.path.join(artefacts_path, 'labels_index.json'), 'rb'))
 
         return cls(model, params, labels_to_index)
 
@@ -51,12 +53,16 @@ class TextPredictionModel:
 
         # TODO: CODE HERE
         # embed text_list
+        embedded_text=embed(text_list)
 
         # TODO: CODE HERE
         # predict tags indexes from embeddings
+        predict_index = model.predict(embedded_text)
 
         # TODO: CODE HERE
         # from tags indexes compute top_k tags for each text
+        indices = argsort(predict_index)[0][-top_k:]
+        predictions = [self.labels_to_index.get(str(index)) for index in indices]
 
         logger.info("Prediction done in {:2f}s".format(time.time() - tic))
 
